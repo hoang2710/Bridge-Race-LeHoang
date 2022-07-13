@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-        public static UIManager Instance { get; private set; }
+    #region Singleton
+    public static UIManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance == null)
@@ -17,4 +18,5 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 }

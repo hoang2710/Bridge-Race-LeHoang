@@ -11,8 +11,10 @@ public class PrefabManager : MonoBehaviour
         public GameObject objectPrefab;
         public int size;
     }
+    [NonReorderable] //NOTE: display first element of list like shit --> use Nonreoderable to fix
     public List<Pool> Pools;
     public Dictionary<ObjectType, Stack<GameObject>> poolDictionary = new Dictionary<ObjectType, Stack<GameObject>>();
+    #region Singleton
     public static PrefabManager Instance { get; private set; }
     private void Awake()
     {
@@ -26,7 +28,7 @@ public class PrefabManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    #endregion
     void Start()
     {
         foreach (Pool pool in Pools)
@@ -46,14 +48,13 @@ public class PrefabManager : MonoBehaviour
 
     public GameObject PopFromPool(ObjectType tag, Vector3 spawnPos, Quaternion rotation)
     {
-        if (!poolDictionary.ContainsKey(tag))
+        GameObject obj = new GameObject();
+        if (poolDictionary[tag].Count > 0)
         {
-            Debug.LogWarning("pool not exist " + tag);
-            return null;
+            obj = poolDictionary[tag].Peek();
+            poolDictionary[tag].Pop();
         }
-
-        GameObject obj = poolDictionary[tag].Peek();
-        if (obj == null)
+        else
         {
             foreach (var item in Pools)
             {
@@ -64,10 +65,6 @@ public class PrefabManager : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            poolDictionary[tag].Pop();
-        }
 
         Transform objTrans = obj.transform;
 
@@ -75,7 +72,7 @@ public class PrefabManager : MonoBehaviour
         objTrans.position = spawnPos;
         objTrans.rotation = rotation;
 
-        IPooledObject pooledObject = obj.GetComponent<IPooledObject>();
+        IPooledObject pooledObject = obj.GetComponent<IPooledObject>(); //NOTE:currently finding solution for cache component
 
         if (pooledObject != null)
         {

@@ -5,8 +5,10 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+
     public static event Action<GameState> OnGameStateChanged;
+    #region Singleton
+    public static GameManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance == null)
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
     public void ChangeGameState(GameState state)
     {
         switch (state)
