@@ -48,22 +48,11 @@ public class PrefabManager : MonoBehaviour
 
     public GameObject PopFromPool(ObjectType tag, Vector3 spawnPos, Quaternion rotation)
     {
-        GameObject obj = new GameObject();
-        if (poolDictionary[tag].Count > 0)
+        GameObject obj = CheckIfHaveItemLeftInPool(tag);
+
+        if (obj == null)
         {
-            obj = poolDictionary[tag].Peek();
-            poolDictionary[tag].Pop();
-        }
-        else
-        {
-            foreach (var item in Pools)
-            {
-                if (item.tag == tag)
-                {
-                    obj = Instantiate(item.objectPrefab);
-                    break;
-                }
-            }
+            return obj;
         }
 
         Transform objTrans = obj.transform;
@@ -79,6 +68,27 @@ public class PrefabManager : MonoBehaviour
             pooledObject.OnObjectSpawn();
         }
         return obj;
+    }
+    private GameObject CheckIfHaveItemLeftInPool(ObjectType tag)
+    {
+        if (poolDictionary[tag].Count > 0)
+        {
+            GameObject obj = poolDictionary[tag].Peek();
+            poolDictionary[tag].Pop();
+            return obj;
+        }
+        else
+        {
+            foreach (var item in Pools)
+            {
+                if (item.tag == tag)
+                {
+                    GameObject obj = Instantiate(item.objectPrefab);
+                    return obj;
+                }
+            }
+        }
+        return null;
     }
     public void PushToPool(ObjectType tag, GameObject obj)
     {

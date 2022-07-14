@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Brick Spawn Point
+  - Spawn Location
   layers:
   - Default
   - TransparentFX

@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]
-    private LevelManager.Level level;
-    [SerializeField]
-    private LevelManager.Stage stage;
+    private Level_Stage curLevelStage;
+    private Dictionary<Level_Stage, List<Vector3>> spawnLocations = new Dictionary<Level_Stage, List<Vector3>>();
+    // private Dictionary<Level_Stage, Queue<Vector3>> tempSpawnLocation = new Dictionary<Level_Stage, Queue<Vector3>>();
     #region Singleton
     public static LevelManager Instance { get; private set; }
     private void Awake()
@@ -27,19 +28,123 @@ public class LevelManager : MonoBehaviour
     {
         GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
     }
-
     private void OnDestroy()
     {
         GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
     }
     private void GameManagerOnGameStateChanged(GameManager.GameState state)
     {
-
+        switch (state)
+        {
+            case GameManager.GameState.LoadLevel:
+                LoadLevel();
+                break;
+            case GameManager.GameState.Loading:
+                LoadGame();
+                break;
+            default:
+                break;
+        }
     }
-    public void SpawnObject(List<Vector3> spawnPoints)
+    public void LoadGame()
     {
+        Debug.Log("Load Game");
+        foreach (var item in System.Enum.GetValues(typeof(Level_Stage)))
+        {
+            var levelData = Resources.Load<LevelData>($"Level Data/{item.ToString()}");
+            if (levelData != null)
+            {
+                spawnLocations.Add(levelData.Level_Stage, levelData.SpawnPoints);
+                Debug.Log(levelData.Level_Stage.ToString() + "   " + levelData.SpawnPoints.Count + "    " + spawnLocations.Count);
+            }
+        }
+    }
+    public void LoadLevel()
+    {
+        Debug.Log("Load Level");
+        List<Vector3> spawnPoints = spawnLocations[curLevelStage];
+        //NOTE: temp code solution for debug
+        #region TEMP CODEEEEEEE FOR SPAWN BASE BRICK
+        int num = spawnPoints.Count / 4;
+        int tempNum = num;
+        while (tempNum-- > 0)
+        {
+            SpawnObject(spawnPoints, PrefabManager.ObjectType.BlueBrick);
+        }
+        tempNum = num;
+        while (tempNum-- > 0)
+        {
+            SpawnObject(spawnPoints, PrefabManager.ObjectType.GreenBrick);
+        }
+        tempNum = num;
+        while (tempNum-- > 0)
+        {
+            SpawnObject(spawnPoints, PrefabManager.ObjectType.RedBrick);
+        }
+        tempNum = num;
+        while (tempNum-- > 0)
+        {
+            SpawnObject(spawnPoints, PrefabManager.ObjectType.YellowBrick);
+        }
+        #endregion
+    }
+    public void SpawnObject(List<Vector3> spawnPoints, PrefabManager.ObjectType objectType)
+    {
+        Debug.Log(spawnPoints.Count);
+        if (spawnPoints.Count <= 0)
+        {
+            return;
+        }
         int ran = Random.Range(0, spawnPoints.Count);
-        PrefabManager.Instance.PopFromPool(PrefabManager.ObjectType.BlueBrick, spawnPoints[ran], Quaternion.identity);
+        PrefabManager.Instance.PopFromPool(objectType, spawnPoints[ran], Quaternion.identity);
+        spawnPoints.RemoveAt(ran);
+    }
+
+
+    public enum Level_Stage
+    {
+        Level_1_Stage_1,
+        Level_1_Stage_2,
+        Level_1_Stage_3,
+        Level_2_Stage_1,
+        Level_2_Stage_2,
+        Level_2_Stage_3,
+        Level_3_Stage_1,
+        Level_3_Stage_2,
+        Level_3_Stage_3
+    }
+
+#if UNITY_EDITOR
+    public GameObject CurSpawnLocation;
+    public void EditorSaveSpawnPoints()
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(ConstValues.TAG_SPAWN_LOCATION);
+        foreach (var item in gameObjects)
+        {
+            item.SetActive(false);
+        }
+
+        CurSpawnLocation.SetActive(true);
+
+        List<Vector3> spawnPoints = GetSpawnPoint();
+
+        var levelData = ScriptableObject.CreateInstance<LevelData>();
+        levelData.SpawnPoints = spawnPoints;
+        levelData.Level_Stage = curLevelStage;
+
+        SaveToAsset(levelData);
+
+        foreach (var item in gameObjects)
+        {
+            item.SetActive(true);
+        }
+    }
+    public void EditorClearSpawnPonts()
+    {
+        AssetDatabase.DeleteAsset($"Assets/_Game/Resources/Level Data/{curLevelStage.ToString()}.asset");
+    }
+    public void EditorCountCurrentSpawnPoints(){
+        Debug.Log(CurSpawnLocation.transform.childCount);
     }
     public List<Vector3> GetSpawnPoint()
     {
@@ -52,17 +157,18 @@ public class LevelManager : MonoBehaviour
 
         return spawnPoints;
     }
+    private void SaveToAsset(LevelData level)
+    {
+        var levelData = Resources.Load<LevelData>($"Level Data/{curLevelStage.ToString()}");
+        if (levelData != null)
+        {
+            Debug.LogWarning("Data for current Level_Stage exist !!!");
+            return;
+        }
 
-    public enum Stage
-    {
-        Stage_1,
-        Stage_2,
-        Stage_3
+        AssetDatabase.CreateAsset(level, $"Assets/_Game/Resources/Level Data/{curLevelStage.ToString()}.asset");
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
-    public enum Level
-    {
-        Level_1,
-        Level_2,
-        Level_3
-    }
+#endif
 }

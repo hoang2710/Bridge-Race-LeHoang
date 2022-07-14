@@ -22,10 +22,18 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    private void Start()
+    {
+        StartCoroutine(DelayChangeGameState(GameState.Loading, 0.5f));
+    }
     public void ChangeGameState(GameState state)
     {
         switch (state)
         {
+            case GameState.Loading:
+                OnGameStateLoading();
+                break;
             case GameState.LoadLevel:
                 OnGameStateLoadLevel();
                 break;
@@ -48,6 +56,11 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(state);
     }
 
+    public void OnGameStateLoading()
+    {
+        Debug.Log("GameStateLoading");
+        StartCoroutine(DelayChangeGameState(GameState.LoadLevel, 0.5f));
+    }
     public void OnGameStateLoadLevel()
     {
         Debug.Log("GameStateLoadLevel");
@@ -72,10 +85,17 @@ public class GameManager : MonoBehaviour
 
     public enum GameState
     {
+        Loading,
         LoadLevel,
         Playing,
         EndLevel,
         ResultPhase,
         MainMenu
+    }
+
+    IEnumerator DelayChangeGameState(GameState state, float time)
+    {
+        yield return new WaitForSeconds(time);
+        ChangeGameState(state);
     }
 }
