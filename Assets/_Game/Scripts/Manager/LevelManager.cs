@@ -64,7 +64,7 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Load Level");
         List<Vector3> spawnPoints = spawnLocations[curLevelStage];
         //NOTE: temp code solution for debug
-        #region TEMP CODEEEEEEE FOR SPAWN BASE BRICK
+        #region TEMP CODE FOR SPAWN BASE BRICK
         int num = spawnPoints.Count / 4;
         int tempNum = num;
         while (tempNum-- > 0)

@@ -39,15 +39,25 @@ public class Player : MonoBehaviour
     {
         Move();
     }
-    private void Move()
-    {
+    // private void Move()
+    // {
+    //     GetMoveDir();
+    //     GetCharacterRotation();
+    //     GetBrickRotation();
+    //     if (isMove && !isInputLock)
+    //     {
+    //         Rb.velocity = moveDir * moveSpeed;
+    //         Rb.MoveRotation(rotation);
+    //     }
+    // }
+    private void Move(){
         GetMoveDir();
         GetCharacterRotation();
         GetBrickRotation();
         if (isMove && !isInputLock)
         {
-            Rb.velocity = moveDir * moveSpeed;
-            Rb.MoveRotation(rotation);
+            PlayerTrans.position = Vector3.MoveTowards(PlayerTrans.position, PlayerTrans.position + moveDir, Time.deltaTime * moveSpeed);
+            PlayerTrans.rotation = rotation;
         }
     }
     private void GetMoveDir()
