@@ -16,11 +16,12 @@ public class Player : MonoBehaviour
     public Quaternion BrickRotation;
     public Animator anim;
     [SerializeField]
-    private float inputThreshhold = 150f * 150f;
+    private float inputThreshold = 150f * 150f; //NOTE: 150 pixel threshold compare to sqrMag Vector3
     private Vector2 screenMoveDir;
     public Stack<GameObject> BrickStack = new Stack<GameObject>();
     private Quaternion StackRootLocalRotation;
     private bool isInputLock;
+    public PrefabManager.ObjectType BrickType;
 
     private void Start()
     {
@@ -50,7 +51,8 @@ public class Player : MonoBehaviour
     //         Rb.MoveRotation(rotation);
     //     }
     // }
-    private void Move(){
+    private void Move()
+    {
         GetMoveDir();
         GetCharacterRotation();
         GetBrickRotation();
@@ -71,7 +73,7 @@ public class Player : MonoBehaviour
         {
             mouseCurrentPos = Input.mousePosition;
             screenMoveDir = mouseCurrentPos - mouseDownPos;
-            if (screenMoveDir.sqrMagnitude > inputThreshhold)
+            if (screenMoveDir.sqrMagnitude > inputThreshold)
             {
                 isMove = true;
                 anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1);
@@ -91,8 +93,7 @@ public class Player : MonoBehaviour
 
         if (isMove)
         {
-            Vector2 tmp = mouseCurrentPos - mouseDownPos;
-            moveDir = new Vector3(tmp.x, 0, tmp.y).normalized;
+            moveDir = new Vector3(screenMoveDir.x, 0, screenMoveDir.y).normalized;
         }
     }
     private void GetCharacterRotation()
@@ -104,6 +105,19 @@ public class Player : MonoBehaviour
     private void GetBrickRotation()
     {
         BrickRotation = rotation * StackRootLocalRotation;
+    }
+    public void MinusBrick()
+    {
+        if (BrickStack.Count > 0)
+        {
+            GameObject obj = BrickStack.Peek();
+            BrickStack.Pop();
+            StackRootTrans.position -= StackRootTrans.up * Brick.brickHeight;
+            PrefabManager.Instance.PushToPool(BrickType, obj);
+
+            //NOTE: spawn new brick if a brick turn into bridge brick
+            LevelManager.Instance.SpawnObject(LevelManager.Instance.spawnLocations[LevelManager.Instance.curLevelStage], BrickType);
+        }
     }
 
     IEnumerator Fall()

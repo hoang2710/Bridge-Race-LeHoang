@@ -5,9 +5,8 @@ using UnityEditor;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField]
-    private Level_Stage curLevelStage;
-    private Dictionary<Level_Stage, List<Vector3>> spawnLocations = new Dictionary<Level_Stage, List<Vector3>>();
+    public Level_Stage curLevelStage;
+    public Dictionary<Level_Stage, List<Vector3>> spawnLocations = new Dictionary<Level_Stage, List<Vector3>>();
     // private Dictionary<Level_Stage, Queue<Vector3>> tempSpawnLocation = new Dictionary<Level_Stage, Queue<Vector3>>();
     #region Singleton
     public static LevelManager Instance { get; private set; }
@@ -90,7 +89,7 @@ public class LevelManager : MonoBehaviour
     }
     public void SpawnObject(List<Vector3> spawnPoints, PrefabManager.ObjectType objectType)
     {
-        Debug.Log(spawnPoints.Count);
+        // Debug.Log(spawnPoints.Count);
         if (spawnPoints.Count <= 0)
         {
             return;
@@ -143,7 +142,8 @@ public class LevelManager : MonoBehaviour
     {
         AssetDatabase.DeleteAsset($"Assets/_Game/Resources/Level Data/{curLevelStage.ToString()}.asset");
     }
-    public void EditorCountCurrentSpawnPoints(){
+    public void EditorCountCurrentSpawnPoints()
+    {
         Debug.Log(CurSpawnLocation.transform.childCount);
     }
     public List<Vector3> GetSpawnPoint()

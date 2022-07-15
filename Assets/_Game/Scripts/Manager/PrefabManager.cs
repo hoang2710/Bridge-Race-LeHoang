@@ -92,6 +92,7 @@ public class PrefabManager : MonoBehaviour
     }
     public void PushToPool(ObjectType tag, GameObject obj)
     {
+        obj.transform.SetParent(null);
         poolDictionary[tag].Push(obj);
         obj.SetActive(false);
     }
@@ -101,6 +102,10 @@ public class PrefabManager : MonoBehaviour
         BlueBrick,
         GreenBrick,
         RedBrick,
-        YellowBrick
+        YellowBrick,
+        BlueStair,
+        GreenStair,
+        RedStair,
+        YellowStair
     }
 }
