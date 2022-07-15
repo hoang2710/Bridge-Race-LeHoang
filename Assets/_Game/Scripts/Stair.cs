@@ -11,13 +11,9 @@ public class Stair : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
-                MinusBrick(player);
+                player.MinusBrick();
                 Debug.Log(gameObject.name);
             }
         }
-    }
-    private void MinusBrick(Player player)
-    {
-        player.MinusBrick();
     }
 }
