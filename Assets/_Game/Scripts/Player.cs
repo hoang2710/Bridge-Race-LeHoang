@@ -21,7 +21,8 @@ public class Player : MonoBehaviour
     public Stack<GameObject> BrickStack = new Stack<GameObject>();
     private Quaternion StackRootLocalRotation;
     private bool isInputLock;
-    public PrefabManager.ObjectType BrickType;
+    public PrefabManager.ObjectType BrickTag;
+    public PrefabManager.ObjectType StairTag;
 
     private void Start()
     {
@@ -106,18 +107,21 @@ public class Player : MonoBehaviour
     {
         BrickRotation = rotation * StackRootLocalRotation;
     }
-    public void MinusBrick()
+    public bool MinusBrick()
     {
         if (BrickStack.Count > 0)
         {
             GameObject obj = BrickStack.Peek();
             BrickStack.Pop();
             StackRootTrans.position -= StackRootTrans.up * Brick.brickHeight;
-            PrefabManager.Instance.PushToPool(BrickType, obj);
+            PrefabManager.Instance.PushToPool(BrickTag, obj);
 
             //NOTE: spawn new brick if a brick turn into bridge brick
-            LevelManager.Instance.SpawnObject(LevelManager.Instance.spawnLocations[LevelManager.Instance.curLevelStage], BrickType);
+            LevelManager.Instance.SpawnObject(LevelManager.Instance.spawnLocations[LevelManager.Instance.curLevelStage], BrickTag);
+
+            return true;
         }
+        return false;
     }
 
     IEnumerator Fall()

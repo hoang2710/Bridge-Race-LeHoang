@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Stair : MonoBehaviour
 {
+    public Transform StairTrans;
+    public GameObject StairObject;
+    public PrefabManager.ObjectType StairTag;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(ConstValues.TAG_PLAYER))
@@ -11,9 +15,16 @@ public class Stair : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
-                player.MinusBrick();
-                Debug.Log(gameObject.name);
+                if (player.MinusBrick())
+                {
+                    SwitchBrick(player.StairTag);
+                }
             }
         }
+    }
+    private void SwitchBrick(PrefabManager.ObjectType targetTag)
+    {
+        PrefabManager.Instance.PopFromPool(targetTag, StairTrans.position, Quaternion.identity);
+        PrefabManager.Instance.PushToPool(StairTag, StairObject);
     }
 }

@@ -109,6 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0017e00ddda7e4f48981dda54923c201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StairTrans: {fileID: 7163252300809405034}
+  StairObject: {fileID: 151475373973273971}
+  StairTag: 3
 --- !u!1 &8065984669513556357
 GameObject:
   m_ObjectHideFlags: 0

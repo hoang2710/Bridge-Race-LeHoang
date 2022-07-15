@@ -106,6 +106,7 @@ public class PrefabManager : MonoBehaviour
         BlueStair,
         GreenStair,
         RedStair,
-        YellowStair
+        YellowStair,
+        InvisibleStair
     }
 }

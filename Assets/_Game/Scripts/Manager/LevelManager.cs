@@ -5,6 +5,7 @@ using UnityEditor;
 
 public class LevelManager : MonoBehaviour
 {
+    public List<Vector3> StairRoot;
     public Level_Stage curLevelStage;
     public Dictionary<Level_Stage, List<Vector3>> spawnLocations = new Dictionary<Level_Stage, List<Vector3>>();
     // private Dictionary<Level_Stage, Queue<Vector3>> tempSpawnLocation = new Dictionary<Level_Stage, Queue<Vector3>>();
@@ -85,6 +86,8 @@ public class LevelManager : MonoBehaviour
         {
             SpawnObject(spawnPoints, PrefabManager.ObjectType.YellowBrick);
         }
+        //NOTE: temp solution fo make invisible stair
+        MakeStair();
         #endregion
     }
     public void SpawnObject(List<Vector3> spawnPoints, PrefabManager.ObjectType objectType)
@@ -98,7 +101,24 @@ public class LevelManager : MonoBehaviour
         PrefabManager.Instance.PopFromPool(objectType, spawnPoints[ran], Quaternion.identity);
         spawnPoints.RemoveAt(ran);
     }
+    private void MakeStair()
+    {
+        float stairHeight = 0.15f;
+        float stairWidth = 0.18f;
 
+
+        foreach (var item in StairRoot)
+        {
+            Vector3 pos = item;
+            int numOfStep = 15;
+            while (numOfStep > 0)
+            {
+                pos += new Vector3(0, stairHeight, stairWidth);
+                PrefabManager.Instance.PopFromPool(PrefabManager.ObjectType.InvisibleStair, pos, Quaternion.identity);
+                numOfStep--;
+            }
+        }
+    }
 
     public enum Level_Stage
     {
