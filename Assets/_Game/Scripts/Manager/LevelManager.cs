@@ -3,96 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
-    public List<Vector3> StairRoot;
     public Level_Stage curLevelStage;
+    public Level_Stage BlueLevelStage;
+    public Level_Stage GreenLevelStage;
+    public Level_Stage RedLevelStage;
+    public Level_Stage YellowLevelStage;
+    public List<LevelData> LevelDataScriptsList;
     public Dictionary<Level_Stage, List<Vector3>> spawnLocations = new Dictionary<Level_Stage, List<Vector3>>();
-    // private Dictionary<Level_Stage, Queue<Vector3>> tempSpawnLocation = new Dictionary<Level_Stage, Queue<Vector3>>();
-    #region Singleton
-    public static LevelManager Instance { get; private set; }
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    #endregion
-    private void Start()
-    {
-        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
-    }
-    private void OnDestroy()
-    {
-        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
-    }
-    private void GameManagerOnGameStateChanged(GameManager.GameState state)
-    {
-        switch (state)
-        {
-            case GameManager.GameState.LoadLevel:
-                LoadLevel();
-                break;
-            case GameManager.GameState.Loading:
-                LoadGame();
-                break;
-            default:
-                break;
-        }
-    }
+    public Dictionary<Level_Stage, int> spawnPointCount = new Dictionary<Level_Stage, int>();
     public void LoadGame()
     {
         Debug.Log("Load Game");
-        foreach (var item in System.Enum.GetValues(typeof(Level_Stage)))
+        foreach (var item in LevelDataScriptsList)
         {
-            var levelData = Resources.Load<LevelData>($"Level Data/{item.ToString()}");
-            if (levelData != null)
-            {
-                spawnLocations.Add(levelData.Level_Stage, levelData.SpawnPoints);
-                Debug.Log(levelData.Level_Stage.ToString() + "   " + levelData.SpawnPoints.Count + "    " + spawnLocations.Count);
-            }
+            List<Vector3> points = new List<Vector3>(item.SpawnPoints);
+            spawnLocations.Add(item.Level_Stage, points);
+            spawnPointCount.Add(item.Level_Stage, points.Count);
+            Debug.Log(item.Level_Stage.ToString() + "   " + points.Count + "    " + spawnLocations.Count);
         }
+
+        BlueLevelStage
+        = GreenLevelStage
+        = RedLevelStage
+        = YellowLevelStage
+        = curLevelStage;
     }
     public void LoadLevel()
     {
         Debug.Log("Load Level");
         List<Vector3> spawnPoints = spawnLocations[curLevelStage];
-        //NOTE: temp code solution for debug
-        #region TEMP CODE FOR SPAWN BASE BRICK
-        int num = spawnPoints.Count / 4;
-        int tempNum = num;
-        while (tempNum-- > 0)
-        {
-            SpawnObject(spawnPoints, PrefabManager.ObjectType.BlueBrick);
-        }
-        tempNum = num;
-        while (tempNum-- > 0)
-        {
-            SpawnObject(spawnPoints, PrefabManager.ObjectType.GreenBrick);
-        }
-        tempNum = num;
-        while (tempNum-- > 0)
-        {
-            SpawnObject(spawnPoints, PrefabManager.ObjectType.RedBrick);
-        }
-        tempNum = num;
-        while (tempNum-- > 0)
-        {
-            SpawnObject(spawnPoints, PrefabManager.ObjectType.YellowBrick);
-        }
-        //NOTE: temp solution fo make invisible stair
-        MakeStair();
-        #endregion
+
+        int num = spawnPointCount[curLevelStage] / 4;
+        SpawnBaseBrick(PrefabManager.ObjectType.BlueBrick, num, spawnPoints);
+        SpawnBaseBrick(PrefabManager.ObjectType.GreenBrick, num, spawnPoints);
+        SpawnBaseBrick(PrefabManager.ObjectType.RedBrick, num, spawnPoints);
+        SpawnBaseBrick(PrefabManager.ObjectType.YellowBrick, num, spawnPoints);
     }
     public void SpawnObject(List<Vector3> spawnPoints, PrefabManager.ObjectType objectType)
     {
-        // Debug.Log(spawnPoints.Count);
+        // Debug.Log(spawnPoints.Count + "   " + spawnLocations[curLevelStage].Count);
         if (spawnPoints.Count <= 0)
         {
             return;
@@ -101,22 +52,11 @@ public class LevelManager : MonoBehaviour
         PrefabManager.Instance.PopFromPool(objectType, spawnPoints[ran], Quaternion.identity);
         spawnPoints.RemoveAt(ran);
     }
-    private void MakeStair()
+    public void SpawnBaseBrick(PrefabManager.ObjectType tag, int num, List<Vector3> spawnPoints)
     {
-        float stairHeight = 0.15f;
-        float stairWidth = 0.18f;
-
-
-        foreach (var item in StairRoot)
+        for (int i = 0; i < num; i++)
         {
-            Vector3 pos = item;
-            int numOfStep = 15;
-            while (numOfStep > 0)
-            {
-                pos += new Vector3(0, stairHeight, stairWidth);
-                PrefabManager.Instance.PopFromPool(PrefabManager.ObjectType.InvisibleStair, pos, Quaternion.identity);
-                numOfStep--;
-            }
+            SpawnObject(spawnPoints, tag);
         }
     }
 
@@ -153,10 +93,7 @@ public class LevelManager : MonoBehaviour
 
         SaveToAsset(levelData);
 
-        foreach (var item in gameObjects)
-        {
-            item.SetActive(true);
-        }
+        CurSpawnLocation.SetActive(false);
     }
     public void EditorClearSpawnPonts()
     {
