@@ -3,26 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
 
     public static event Action<GameState> OnGameStateChanged;
-    #region Singleton
-    public static GameManager Instance { get; private set; }
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    #endregion
-
     private void Start()
     {
         StartCoroutine(DelayChangeGameState(GameState.Loading, 0.5f));
@@ -60,10 +44,12 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameStateLoading");
         StartCoroutine(DelayChangeGameState(GameState.LoadLevel, 0.5f));
+        LevelManager.Instance.LoadGame();
     }
     public void OnGameStateLoadLevel()
     {
         Debug.Log("GameStateLoadLevel");
+        LevelManager.Instance.LoadLevel();
     }
     public void OnGameStatePlaying()
     {

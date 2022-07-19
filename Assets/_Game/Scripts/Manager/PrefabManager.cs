@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrefabManager : MonoBehaviour
+public class PrefabManager : Singleton<PrefabManager>
 {
     [System.Serializable]
     public class Pool
@@ -14,21 +14,6 @@ public class PrefabManager : MonoBehaviour
     [NonReorderable] //NOTE: display first element of list like shit --> use Nonreoderable to fix
     public List<Pool> Pools;
     public Dictionary<ObjectType, Stack<GameObject>> poolDictionary = new Dictionary<ObjectType, Stack<GameObject>>();
-    #region Singleton
-    public static PrefabManager Instance { get; private set; }
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    #endregion
     void Start()
     {
         foreach (Pool pool in Pools)
