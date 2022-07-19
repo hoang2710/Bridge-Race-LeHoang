@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private Vector2 mouseCurrentPos;
     private bool isMove;
     private float moveSpeed = 1f;
-    protected Quaternion rotation;
+    private Quaternion rotation;
     public Quaternion BrickRotation;
     public Animator anim;
     [SerializeField]
@@ -23,11 +23,8 @@ public class Player : MonoBehaviour
     private bool isInputLock;
     public PrefabManager.ObjectType BrickTag;
     public PrefabManager.ObjectType StairTag;
-    public LevelManager.Level_Stage LevelStage;
-    protected const RigidbodyConstraints rbMoveConstraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-    protected const RigidbodyConstraints rbStayConstraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-    protected void Start()
+    private void Start()
     {
         StackRootLocalRotation = StackRootTrans.localRotation;
     }
@@ -44,6 +41,17 @@ public class Player : MonoBehaviour
     {
         Move();
     }
+    // private void Move()
+    // {
+    //     GetMoveDir();
+    //     GetCharacterRotation();
+    //     GetBrickRotation();
+    //     if (isMove && !isInputLock)
+    //     {
+    //         Rb.velocity = moveDir * moveSpeed;
+    //         Rb.MoveRotation(rotation);
+    //     }
+    // }
     private void Move()
     {
         GetMoveDir();
@@ -51,13 +59,8 @@ public class Player : MonoBehaviour
         GetBrickRotation();
         if (isMove && !isInputLock)
         {
-            Rb.constraints = rbMoveConstraints;
             PlayerTrans.position = Vector3.MoveTowards(PlayerTrans.position, PlayerTrans.position + moveDir, Time.deltaTime * moveSpeed);
             PlayerTrans.rotation = rotation;
-        }
-        else
-        {
-            Rb.constraints = rbStayConstraints;
         }
     }
     private void GetMoveDir()
@@ -121,7 +124,7 @@ public class Player : MonoBehaviour
         return false;
     }
 
-    public IEnumerator Fall()
+    IEnumerator Fall()
     {
         isInputLock = true;
         anim.SetTrigger(ConstValues.PLAYER_ANIM_FALL);
