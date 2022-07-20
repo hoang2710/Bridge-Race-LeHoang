@@ -8,6 +8,11 @@ public class Enemy : Player
     public NavMeshAgent NavAgent;
     public Transform targetTrans;
     private bool isFall;
+    new private void Start()
+    {
+        StackRootLocalRotation = StackRootTrans.localRotation;
+        Rb.constraints = rbMoveConstraints;
+    }
     private void Update()
     {
         if (!isFall)
@@ -28,6 +33,7 @@ public class Enemy : Player
     protected override void FixedUpdate()
     {
         //NOTE: .........
+        BrickRotation = PlayerTrans.rotation * StackRootLocalRotation;
     }
     public override void TriggerFall()
     {
@@ -37,9 +43,11 @@ public class Enemy : Player
     private IEnumerator Fall()
     {
         isFall = true;
+        Col.enabled = false;
         NavAgent.destination = PlayerTrans.position;
         anim.SetTrigger(ConstValues.PLAYER_ANIM_FALL);
         yield return new WaitForSeconds(5.3f); //NOTE: ~ time of fall plus kipup animation
         isFall = false;
+        Col.enabled = true;
     }
 }

@@ -9,7 +9,7 @@ public class Brick : MonoBehaviour, IPooledObject
     public static float brickHeight = 0.03f;
     public GameObject BrickObj;
 
-    public void OnObjectSpawn()
+    public virtual void OnObjectSpawn()
     {
 
     }

@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public Rigidbody Rb;
     public Transform PlayerTrans;
+    public Collider Col;
     public Transform StackRootTrans;
     private Vector3 moveDir;
     private Vector2 mouseDownPos;
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
     private float inputThreshold = 150f * 150f; //NOTE: 150 pixel threshold compare to sqrMag Vector3
     private Vector2 screenMoveDir;
     public Stack<GameObject> BrickStack = new Stack<GameObject>();
-    private Quaternion StackRootLocalRotation;
+    protected Quaternion StackRootLocalRotation;
     private bool isInputLock;
     public PrefabManager.ObjectType BrickTag;
     public PrefabManager.ObjectType StairTag;
@@ -114,7 +115,7 @@ public class Player : MonoBehaviour
             PrefabManager.Instance.PushToPool(BrickTag, obj);
 
             //NOTE: spawn new brick if a brick turn into bridge brick
-            LevelManager.Instance.SpawnObject(LevelManager.Instance.spawnLocations[LevelManager.Instance.curLevelStage], BrickTag);
+            LevelManager.Instance.SpawnObject(LevelManager.Instance.spawnLocations[LevelStage], BrickTag);
 
             return true;
         }
@@ -140,32 +141,40 @@ public class Player : MonoBehaviour
         if (tmp > 0)
         {
             _player.TriggerFall();
-        }
-        else
-        {
-            TriggerFall();
+            _player.DropBrick();
         }
     }
     public virtual void TriggerFall()
     {
         StartCoroutine(Fall());
     }
-    public void DropBrick(){
+    public void DropBrick()
+    {
         int tmp = BrickStack.Count;
-        for(int i=0; i<tmp; i++){
-            GameObject obj = BrickStack.Peek();
-            
-            BrickStack.Pop();
-            obj.AddComponent<Rigidbody>();
 
+        for (int i = 0; i < tmp; i++)
+        {
+            GameObject obj = BrickStack.Peek();
+            Transform objTrans = obj.transform;
+
+            BrickStack.Pop();
+            StackRootTrans.position -= StackRootTrans.up * Brick.brickHeight;
+
+            //NOTE: spawn new brick if a brick is turn into grayBrick
+            LevelManager.Instance.SpawnObject(LevelManager.Instance.spawnLocations[LevelStage], BrickTag);
+
+            PrefabManager.Instance.PopFromPool(PrefabManager.ObjectType.GrayBrick, objTrans.position, objTrans.rotation);
+            PrefabManager.Instance.PushToPool(BrickTag, obj);
         }
     }
 
     private IEnumerator Fall()
     {
         isInputLock = true;
+        Col.enabled = false;
         anim.SetTrigger(ConstValues.PLAYER_ANIM_FALL);
         yield return new WaitForSeconds(5.3f); //NOTE: ~ time of fall plus kipup animation
         isInputLock = false;
+        Col.enabled = true;
     }
 }

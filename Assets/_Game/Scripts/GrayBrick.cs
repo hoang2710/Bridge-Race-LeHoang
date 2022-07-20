@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class GrayBrick : Brick
 {
+    public Collider Col;
+
+    public override void OnObjectSpawn()
+    {
+        Col.enabled = false;
+        StartCoroutine(DelayCanPickStatus());
+    }
     protected override void AddBrickToPlayer(Player player)
     {
         GameObject tmpBrickObj = PrefabManager.Instance.PopFromPool(player.BrickTag, BrickTrans.position, BrickTrans.rotation);
@@ -14,8 +21,14 @@ public class GrayBrick : Brick
         player.StackRootTrans.position += player.StackRootTrans.up * brickHeight;
         tmpBrickTrans.rotation = player.BrickRotation;
 
-        player.BrickStack.Push(BrickObj);
+        player.BrickStack.Push(tmpBrickObj);
 
         PrefabManager.Instance.PushToPool(PrefabManager.ObjectType.GrayBrick, BrickObj);
+    }
+
+    private IEnumerator DelayCanPickStatus()
+    {
+        yield return new WaitForSeconds(2f);
+        Col.enabled = true;
     }
 }

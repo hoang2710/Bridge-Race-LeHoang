@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BrickTrans: {fileID: 8676033259179518865}
   BrickObj: {fileID: 6101838404450213002}
+  Col: {fileID: 5405553358184527392}
 --- !u!65 &5405553358184527392
 BoxCollider:
   m_ObjectHideFlags: 0

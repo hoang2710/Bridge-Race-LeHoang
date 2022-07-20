@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StairTrans: {fileID: 3319081993123520935}
   StairObject: {fileID: 1120681863037387307}
-  StairTag: 1
+  StairTag: 5
 --- !u!1 &2390119458211891814
 GameObject:
   m_ObjectHideFlags: 0

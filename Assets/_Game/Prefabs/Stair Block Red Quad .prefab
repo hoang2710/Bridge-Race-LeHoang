@@ -207,4 +207,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StairTrans: {fileID: 3670136484708544446}
   StairObject: {fileID: 2505944099071595271}
-  StairTag: 2
+  StairTag: 7
