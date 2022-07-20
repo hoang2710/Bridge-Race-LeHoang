@@ -808,6 +808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 51462608}
   PlayerTrans: {fileID: 51462606}
+  Col: {fileID: 51462609}
   StackRootTrans: {fileID: 544976800}
   BrickRotation: {x: 0, y: 0, z: 0, w: 0}
   anim: {fileID: 51462611}
@@ -1003,6 +1004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 58587931}
   PlayerTrans: {fileID: 58587929}
+  Col: {fileID: 58587932}
   StackRootTrans: {fileID: 358599138}
   BrickRotation: {x: 0, y: 0, z: 0, w: 0}
   anim: {fileID: 58587934}
@@ -12141,7 +12143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.3272752, y: -0.00000003982578, z: 0.000000013793616, w: 0.94492906}
+  m_LocalRotation: {x: 0.3272752, y: -0.000000039825782, z: 0.000000013793617, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -15233,6 +15235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 1283615549}
   PlayerTrans: {fileID: 1283615547}
+  Col: {fileID: 1283615550}
   StackRootTrans: {fileID: 807243057}
   BrickRotation: {x: 0, y: 0, z: 0, w: 0}
   anim: {fileID: 1283615552}
@@ -18428,7 +18431,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546035312}
-  m_LocalRotation: {x: 0.3272752, y: -0.00000003982578, z: 0.000000013793616, w: 0.94492906}
+  m_LocalRotation: {x: 0.3272752, y: -0.000000039825782, z: 0.000000013793617, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -25068,6 +25071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 919132148873208710}
   PlayerTrans: {fileID: 543450652807461183}
+  Col: {fileID: 305189476}
   StackRootTrans: {fileID: 1568650174}
   BrickRotation: {x: 0, y: 0, z: 0, w: 0}
   anim: {fileID: 5866666021124252485}
