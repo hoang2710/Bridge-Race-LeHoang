@@ -88,6 +88,7 @@ public class PrefabManager : Singleton<PrefabManager>
         GreenBrick,
         RedBrick,
         YellowBrick,
+        GrayBrick,
         BlueStair,
         GreenStair,
         RedStair,

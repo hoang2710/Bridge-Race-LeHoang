@@ -25,7 +25,7 @@ public class Brick : MonoBehaviour, IPooledObject
             }
         }
     }
-    private void AddBrickToPlayer(Player player)
+    protected virtual void AddBrickToPlayer(Player player)
     {
         //NOTE: Add spawn position back to spawnPoints List
         LevelManager.Instance.spawnLocations[player.LevelStage].Add(BrickTrans.position);

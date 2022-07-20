@@ -152,7 +152,13 @@ public class Player : MonoBehaviour
     }
     public void DropBrick(){
         int tmp = BrickStack.Count;
-        
+        for(int i=0; i<tmp; i++){
+            GameObject obj = BrickStack.Peek();
+            
+            BrickStack.Pop();
+            obj.AddComponent<Rigidbody>();
+
+        }
     }
 
     private IEnumerator Fall()
