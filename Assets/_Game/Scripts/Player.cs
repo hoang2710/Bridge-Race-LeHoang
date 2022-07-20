@@ -152,6 +152,7 @@ public class Player : MonoBehaviour
     }
     public void DropBrick(){
         int tmp = BrickStack.Count;
+        
     }
 
     private IEnumerator Fall()
