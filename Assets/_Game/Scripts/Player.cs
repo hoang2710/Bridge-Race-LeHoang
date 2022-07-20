@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     public PrefabManager.ObjectType BrickTag;
     public PrefabManager.ObjectType StairTag;
     public LevelManager.Level_Stage LevelStage;
-    protected const RigidbodyConstraints rbMoveConstraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-    protected const RigidbodyConstraints rbStayConstraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+    protected const RigidbodyConstraints rbMoveConstraints = RigidbodyConstraints.FreezeRotation;
+    protected const RigidbodyConstraints rbStayConstraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
 
     protected void Start()
     {
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
         }
     }
 #endif
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         Move();
     }
@@ -120,8 +120,41 @@ public class Player : MonoBehaviour
         }
         return false;
     }
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.CompareTag(ConstValues.TAG_PLAYER))
+        {
+            Player _player = other.collider.GetComponent<Player>();
 
-    public IEnumerator Fall()
+            if (_player != null)
+            {
+                HitPlayer(_player);
+            }
+        }
+    }
+    private void HitPlayer(Player _player)
+    {
+        int tmp = BrickStack.Count - _player.BrickStack.Count;
+
+        if (tmp == 0) return;
+        if (tmp > 0)
+        {
+            _player.TriggerFall();
+        }
+        else
+        {
+            TriggerFall();
+        }
+    }
+    public virtual void TriggerFall()
+    {
+        StartCoroutine(Fall());
+    }
+    public void DropBrick(){
+        int tmp = BrickStack.Count;
+    }
+
+    private IEnumerator Fall()
     {
         isInputLock = true;
         anim.SetTrigger(ConstValues.PLAYER_ANIM_FALL);

@@ -10,10 +10,14 @@ public class GateDetect : MonoBehaviour
         {
             Player player = other.GetComponent<Player>();
 
-            player.LevelStage++;
-            LevelManager.Instance.SpawnBaseBrick(player.BrickTag,
-            LevelManager.Instance.spawnPointCount[player.LevelStage] / ConstValues.VALUE_NUM_OF_PLAYER,
-            LevelManager.Instance.spawnLocations[player.LevelStage]);
+            if (player != null)
+            {
+                //NOTE: update current Level_Stage status to next stage
+                player.LevelStage++;
+                LevelManager.Instance.SpawnBaseBrick(player.BrickTag,
+                LevelManager.Instance.spawnPointCount[player.LevelStage] / ConstValues.VALUE_NUM_OF_PLAYER,
+                LevelManager.Instance.spawnLocations[player.LevelStage]);
+            }
         }
     }
 }
