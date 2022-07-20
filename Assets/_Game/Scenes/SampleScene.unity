@@ -814,7 +814,7 @@ MonoBehaviour:
   anim: {fileID: 51462611}
   inputThreshold: 22500
   BrickTag: 2
-  StairTag: 6
+  StairTag: 7
   LevelStage: 0
   NavAgent: {fileID: 51462607}
   targetTrans: {fileID: 1257965288}
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   anim: {fileID: 58587934}
   inputThreshold: 22500
   BrickTag: 1
-  StairTag: 5
+  StairTag: 6
   LevelStage: 0
   NavAgent: {fileID: 58587930}
   targetTrans: {fileID: 1257965288}
@@ -12143,7 +12143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.3272752, y: -0.000000039825782, z: 0.000000013793617, w: 0.94492906}
+  m_LocalRotation: {x: 0.32727522, y: 1.1488943e-17, z: -1.7992356e-17, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -15241,7 +15241,7 @@ MonoBehaviour:
   anim: {fileID: 1283615552}
   inputThreshold: 22500
   BrickTag: 3
-  StairTag: 7
+  StairTag: 8
   LevelStage: 0
   NavAgent: {fileID: 1283615548}
   targetTrans: {fileID: 1257965288}
@@ -18431,7 +18431,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546035312}
-  m_LocalRotation: {x: 0.3272752, y: -0.000000039825782, z: 0.000000013793617, w: 0.94492906}
+  m_LocalRotation: {x: 0.32727522, y: 1.1488943e-17, z: -1.7992356e-17, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -25077,7 +25077,7 @@ MonoBehaviour:
   anim: {fileID: 5866666021124252485}
   inputThreshold: 22500
   BrickTag: 0
-  StairTag: 4
+  StairTag: 5
   LevelStage: 0
 --- !u!1 &950778531910382557
 GameObject:
