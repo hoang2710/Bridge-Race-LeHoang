@@ -7,9 +7,23 @@ public class Enemy : Player
 {
     public NavMeshAgent NavAgent;
     public Transform targetTrans;
+    private bool isFall;
     private void Update()
     {
-        NavAgent.destination = targetTrans.position;
+        if (!isFall)
+        {
+            NavAgent.destination = targetTrans.position;
+
+            if (NavAgent.velocity.sqrMagnitude < 0.01f)
+            {
+                anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 0);
+            }
+            else
+            {
+                anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
+            }
+        }
+
     }
     protected override void FixedUpdate()
     {
@@ -22,8 +36,10 @@ public class Enemy : Player
 
     private IEnumerator Fall()
     {
+        isFall = true;
+        NavAgent.destination = PlayerTrans.position;
         anim.SetTrigger(ConstValues.PLAYER_ANIM_FALL);
         yield return new WaitForSeconds(5.3f); //NOTE: ~ time of fall plus kipup animation
-        Debug.Log("Stop moving");
+        isFall = false;
     }
 }
