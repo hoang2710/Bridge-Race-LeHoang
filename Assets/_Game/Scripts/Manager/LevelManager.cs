@@ -6,10 +6,6 @@ using UnityEditor;
 public class LevelManager : Singleton<LevelManager>
 {
     public Level_Stage curLevelStage;
-    public Level_Stage BlueLevelStage;
-    public Level_Stage GreenLevelStage;
-    public Level_Stage RedLevelStage;
-    public Level_Stage YellowLevelStage;
     public List<LevelData> LevelDataScriptsList;
     public Dictionary<Level_Stage, List<Vector3>> spawnLocations = new Dictionary<Level_Stage, List<Vector3>>();
     public Dictionary<Level_Stage, int> spawnPointCount = new Dictionary<Level_Stage, int>();
@@ -23,23 +19,22 @@ public class LevelManager : Singleton<LevelManager>
             spawnPointCount.Add(item.Level_Stage, points.Count);
             Debug.Log(item.Level_Stage.ToString() + "   " + points.Count + "    " + spawnLocations.Count);
         }
-
-        BlueLevelStage
-        = GreenLevelStage
-        = RedLevelStage
-        = YellowLevelStage
-        = curLevelStage;
     }
     public void LoadLevel()
     {
         Debug.Log("Load Level");
         List<Vector3> spawnPoints = spawnLocations[curLevelStage];
 
-        int num = spawnPointCount[curLevelStage] / 4;
+        int num = spawnPointCount[curLevelStage] / ConstValues.VALUE_NUM_OF_PLAYER;
         SpawnBaseBrick(PrefabManager.ObjectType.BlueBrick, num, spawnPoints);
         SpawnBaseBrick(PrefabManager.ObjectType.GreenBrick, num, spawnPoints);
         SpawnBaseBrick(PrefabManager.ObjectType.RedBrick, num, spawnPoints);
         SpawnBaseBrick(PrefabManager.ObjectType.YellowBrick, num, spawnPoints);
+    }
+    public void LoadNextLevel()
+    {
+        curLevelStage = (Level_Stage)(((int)curLevelStage + 3) % 9);
+        LoadLevel();
     }
     public void SpawnObject(List<Vector3> spawnPoints, PrefabManager.ObjectType objectType)
     {

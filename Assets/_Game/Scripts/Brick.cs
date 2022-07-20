@@ -28,7 +28,7 @@ public class Brick : MonoBehaviour, IPooledObject
     private void AddBrickToPlayer(Player player)
     {
         //NOTE: Add spawn position back to spawnPoints List
-        LevelManager.Instance.spawnLocations[LevelManager.Instance.curLevelStage].Add(BrickTrans.position);
+        LevelManager.Instance.spawnLocations[player.LevelStage].Add(BrickTrans.position);
 
         BrickTrans.SetParent(player.PlayerTrans);
         BrickTrans.position = player.StackRootTrans.position;

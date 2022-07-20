@@ -13,4 +13,5 @@ public class ConstValues
     public const string TAG_SPAWN_LOCATION = "Spawn Location";
     public const float VALUE_STAIR_HEIGHT = 0.15f;
     public const float VALUE_STAIR_WIDTH = 0.18f;
+    public const int VALUE_NUM_OF_PLAYER = 4;
 }
