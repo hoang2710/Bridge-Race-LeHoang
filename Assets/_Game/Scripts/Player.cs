@@ -32,15 +32,6 @@ public class Player : MonoBehaviour
     {
         StackRootLocalRotation = StackRootTrans.localRotation;
     }
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(Fall());
-        }
-    }
-#endif
     protected virtual void FixedUpdate()
     {
         Move();
@@ -173,7 +164,7 @@ public class Player : MonoBehaviour
         isInputLock = true;
         Col.enabled = false;
         anim.SetTrigger(ConstValues.PLAYER_ANIM_FALL);
-        yield return new WaitForSeconds(5.3f); //NOTE: ~ time of fall plus kipup animation
+        yield return new WaitForSeconds(ConstValues.VALUE_TIME_OF_FALL_ANIM); //NOTE: ~ time of fall plus kipup animation
         isInputLock = false;
         Col.enabled = true;
     }

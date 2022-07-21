@@ -4052,7 +4052,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148873208709}
-  m_Material: {fileID: 13400000, guid: 693d18efdf87b5a4c9a4b8597f62241f, type: 2}
+  m_Material: {fileID: 13400000, guid: 75caffaca02770840a8d21e6496cfbb0, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.08
@@ -10094,7 +10094,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 1, z: 0.1}
+  m_Size: {x: 1, y: 1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &798158405
 PrefabInstance:
@@ -12143,7 +12143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.32727522, y: 1.1488943e-17, z: -1.7992356e-17, w: 0.94492906}
+  m_LocalRotation: {x: 0.3272752, y: 0.00000003982578, z: -0.000000013793616, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -14781,7 +14781,7 @@ GameObject:
   - component: {fileID: 1257965286}
   - component: {fileID: 1257965285}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Bot Move Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14857,7 +14857,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257965284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.49, y: 0.13928139, z: -1.27}
+  m_LocalPosition: {x: -0.01, y: 0.13928139, z: 0.41}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18431,7 +18431,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546035312}
-  m_LocalRotation: {x: 0.32727522, y: 1.1488943e-17, z: -1.7992356e-17, w: 0.94492906}
+  m_LocalRotation: {x: 0.3272752, y: 0.00000003982578, z: -0.000000013793616, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -25056,7 +25056,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!114 &919132148873208711
 MonoBehaviour:
   m_ObjectHideFlags: 0

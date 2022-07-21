@@ -12,10 +12,19 @@ public class Enemy : Player
     {
         StackRootLocalRotation = StackRootTrans.localRotation;
         Rb.constraints = rbMoveConstraints;
+        NavAgent.updateRotation = false;
     }
     private void Update()
     {
-        if (!isFall)
+        BotMove();
+    }
+    private void BotMove()
+    {
+        if (isFall)
+        {
+            NavAgent.destination = PlayerTrans.position;
+        }
+        else
         {
             NavAgent.destination = targetTrans.position;
 
@@ -26,6 +35,7 @@ public class Enemy : Player
             else
             {
                 anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
+                PlayerTrans.rotation = Quaternion.LookRotation(NavAgent.velocity.normalized);
             }
         }
 
@@ -44,9 +54,8 @@ public class Enemy : Player
     {
         isFall = true;
         Col.enabled = false;
-        NavAgent.destination = PlayerTrans.position;
         anim.SetTrigger(ConstValues.PLAYER_ANIM_FALL);
-        yield return new WaitForSeconds(5.3f); //NOTE: ~ time of fall plus kipup animation
+        yield return new WaitForSeconds(ConstValues.VALUE_TIME_OF_FALL_ANIM); //NOTE: ~ time of fall plus kipup animation
         isFall = false;
         Col.enabled = true;
     }
