@@ -13,17 +13,18 @@ public class Enemy : Player
         StackRootLocalRotation = StackRootTrans.localRotation;
         Rb.constraints = rbMoveConstraints;
         NavAgent.updateRotation = false;
+        NavAgent.autoBraking = false;
     }
     private void Update()
     {
-        BotMove();
+        BotMove(targetTrans.position);
     }
     protected override void FixedUpdate()
     {
-        // NOTE: Only get brick rotate Quaternion
+        //NOTE: Only get brick rotate Quaternion
         BrickRotation = PlayerTrans.rotation * StackRootLocalRotation;
     }
-    private void BotMove()
+    private void BotMove(Vector3 destination)
     {
         if (isFall)
         {
@@ -31,7 +32,7 @@ public class Enemy : Player
         }
         else
         {
-            NavAgent.destination = targetTrans.position;
+            NavAgent.destination = destination;
 
             if (NavAgent.velocity.sqrMagnitude < 0.01f)
             {

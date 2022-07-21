@@ -5,12 +5,6 @@ using UnityEditor;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    public struct PlayerRef{
-        public GameObject obj;
-        public Transform objTrans;
-        public Level_Stage LevelStage; 
-    }
-    public List<PlayerRef> PlayerList;
     public Level_Stage curLevelStage;
     public List<LevelData> LevelDataScriptsList;
     public Dictionary<Level_Stage, List<Vector3>> spawnLocations = new Dictionary<Level_Stage, List<Vector3>>();

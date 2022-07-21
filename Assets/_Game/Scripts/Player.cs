@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
     {
         if (other.collider.CompareTag(ConstValues.TAG_PLAYER))
         {
-            Player _player = other.collider.GetComponent<Player>(); Debug.Log(gameObject.name + "   Detect collide");
+            Player _player = other.collider.GetComponent<Player>();
 
             if (_player != null)
             {
@@ -132,7 +132,6 @@ public class Player : MonoBehaviour
         if (tmp == 0) return;
         if (tmp < 0 && !IsOnBridge())
         {
-            Debug.Log(gameObject.name + "  Hit");
             TriggerFall();
             DropBrick();
         }
@@ -140,11 +139,11 @@ public class Player : MonoBehaviour
     }
     protected virtual void TriggerFall()
     {
-        StartCoroutine(Fall()); Debug.Log(gameObject.name + "   Fall");
+        StartCoroutine(Fall()); 
     }
     private void DropBrick()
     {
-        int tmp = BrickStack.Count; Debug.Log(gameObject.name + "   Drop Brick");
+        int tmp = BrickStack.Count;
 
         for (int i = 0; i < tmp; i++)
         {
@@ -167,11 +166,11 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(PlayerTrans.position + Vector3.up, Vector3.down, 10f, ConstValues.LAYER_MASK_GROUND))
         {
-            Debug.Log(gameObject.name + "  Not on bridge"); return false;
+            return false;
         }
         else
         {
-            Debug.Log(gameObject.name + "  On bridge"); return true;
+            return true;
         }
     }
 
