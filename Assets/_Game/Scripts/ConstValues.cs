@@ -15,4 +15,5 @@ public class ConstValues
     public const float VALUE_STAIR_WIDTH = 0.18f;
     public const int VALUE_NUM_OF_PLAYER = 4;
     public const float VALUE_TIME_OF_FALL_ANIM = 4.85f;
+    public const int LAYER_MASK_GROUND = 1 << 18;
 }

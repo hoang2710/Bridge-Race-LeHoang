@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GateDetect : MonoBehaviour
 {
+    public LevelManager.Level_Stage targetLevelStage;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(ConstValues.TAG_PLAYER))
@@ -12,11 +13,14 @@ public class GateDetect : MonoBehaviour
 
             if (player != null)
             {
-                //NOTE: update current Level_Stage status to next stage
-                player.LevelStage++;
-                LevelManager.Instance.SpawnBaseBrick(player.BrickTag,
-                LevelManager.Instance.spawnPointCount[player.LevelStage] / ConstValues.VALUE_NUM_OF_PLAYER,
-                LevelManager.Instance.spawnLocations[player.LevelStage]);
+                if ((int)player.LevelStage != (int)targetLevelStage)
+                {
+                    //NOTE: update current Level_Stage status to target stage
+                    player.LevelStage = targetLevelStage;
+                    LevelManager.Instance.SpawnBaseBrick(player.BrickTag,
+                    LevelManager.Instance.spawnPointCount[player.LevelStage] / ConstValues.VALUE_NUM_OF_PLAYER,
+                    LevelManager.Instance.spawnLocations[player.LevelStage]);
+                }
             }
         }
     }

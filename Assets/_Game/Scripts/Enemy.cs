@@ -18,6 +18,11 @@ public class Enemy : Player
     {
         BotMove();
     }
+    protected override void FixedUpdate()
+    {
+        // NOTE: Only get brick rotate Quaternion
+        BrickRotation = PlayerTrans.rotation * StackRootLocalRotation;
+    }
     private void BotMove()
     {
         if (isFall)
@@ -35,17 +40,16 @@ public class Enemy : Player
             else
             {
                 anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
-                PlayerTrans.rotation = Quaternion.LookRotation(NavAgent.velocity.normalized);
+                MakeBotRotate();
             }
         }
-
     }
-    protected override void FixedUpdate()
+    private void MakeBotRotate()
     {
-        //NOTE: .........
-        BrickRotation = PlayerTrans.rotation * StackRootLocalRotation;
+        Vector3 dir = new Vector3(NavAgent.velocity.x, 0, NavAgent.velocity.z).normalized;
+        PlayerTrans.rotation = Quaternion.LookRotation(dir);
     }
-    public override void TriggerFall()
+    protected override void TriggerFall()
     {
         StartCoroutine(Fall());
     }

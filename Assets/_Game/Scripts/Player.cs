@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
     {
         if (other.collider.CompareTag(ConstValues.TAG_PLAYER))
         {
-            Player _player = other.collider.GetComponent<Player>();
+            Player _player = other.collider.GetComponent<Player>(); Debug.Log(gameObject.name + "   Detect collide");
 
             if (_player != null)
             {
@@ -128,20 +128,23 @@ public class Player : MonoBehaviour
     {
         int tmp = BrickStack.Count - _player.BrickStack.Count;
 
+
         if (tmp == 0) return;
-        if (tmp > 0)
+        if (tmp < 0 && !IsOnBridge())
         {
-            _player.TriggerFall();
-            _player.DropBrick();
+            Debug.Log(gameObject.name + "  Hit");
+            TriggerFall();
+            DropBrick();
         }
+
     }
-    public virtual void TriggerFall()
+    protected virtual void TriggerFall()
     {
-        StartCoroutine(Fall());
+        StartCoroutine(Fall()); Debug.Log(gameObject.name + "   Fall");
     }
-    public void DropBrick()
+    private void DropBrick()
     {
-        int tmp = BrickStack.Count;
+        int tmp = BrickStack.Count; Debug.Log(gameObject.name + "   Drop Brick");
 
         for (int i = 0; i < tmp; i++)
         {
@@ -156,6 +159,19 @@ public class Player : MonoBehaviour
 
             PrefabManager.Instance.PopFromPool(PrefabManager.ObjectType.GrayBrick, objTrans.position, objTrans.rotation);
             PrefabManager.Instance.PushToPool(BrickTag, obj);
+        }
+    }
+    private bool IsOnBridge()
+    {
+        Debug.DrawRay(PlayerTrans.position + Vector3.up, Vector3.down, Color.red, 10f);
+
+        if (Physics.Raycast(PlayerTrans.position + Vector3.up, Vector3.down, 10f, ConstValues.LAYER_MASK_GROUND))
+        {
+            Debug.Log(gameObject.name + "  Not on bridge"); return false;
+        }
+        else
+        {
+            Debug.Log(gameObject.name + "  On bridge"); return true;
         }
     }
 
