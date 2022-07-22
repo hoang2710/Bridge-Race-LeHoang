@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stair : MonoBehaviour
+public class Stair : MonoBehaviour, IPooledObject
 {
     public Transform StairTrans;
     public GameObject StairObject;
     public PrefabManager.ObjectType StairTag;
+
+    public void OnObjectSpawn()
+    {
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {

@@ -11,6 +11,8 @@ public class AIAgent : MonoBehaviour
     public Transform BotTrans;
     public Animator anim;
     public Collider BotCollider;
+    public LayerMask BrickLayerMask;
+    public float moveSpeed = 1f;
 
     private void Start() {
         stateMachine = new AIStateMachine(this);

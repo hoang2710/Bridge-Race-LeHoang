@@ -16,4 +16,6 @@ public class ConstValues
     public const int VALUE_NUM_OF_PLAYER = 4;
     public const float VALUE_TIME_OF_FALL_ANIM = 4.85f;
     public const int LAYER_MASK_GROUND = 1 << 18;
+    public const float VALUE_BOT_DETECT_RANGE = 6.0f;
+    public const float VALUE_BOT_MIN_TOUCH_BRICK_DISTANCE = 0.06f * 0.06f; //NOTE: compare to sqrMag
 }

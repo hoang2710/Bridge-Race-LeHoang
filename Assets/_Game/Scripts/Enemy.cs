@@ -21,21 +21,6 @@ public class Enemy : Player
         //NOTE: Only get brick rotate Quaternion
         BrickRotation = PlayerTrans.rotation * StackRootLocalRotation;
     }
-    // private void BotMove(Vector3 destination)
-    // {
-    //     if (!isFall)
-    //     {
-    //         if (NavAgent.velocity.sqrMagnitude < 0.01f)
-    //         {
-    //             anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 0);
-    //         }
-    //         else
-    //         {
-    //             anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
-    //             MakeBotRotate();
-    //         }
-    //     }
-    // }
     protected override void TriggerFall()
     {
         StartCoroutine(Fall());

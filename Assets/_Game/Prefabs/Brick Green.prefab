@@ -110,4 +110,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BrickTrans: {fileID: 8637294712284148381}
   BrickObj: {fileID: 7388014347832591827}
-  rb: {fileID: 0}
+  Col: {fileID: 8935949969700735024}

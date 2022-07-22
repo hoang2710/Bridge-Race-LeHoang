@@ -14,7 +14,7 @@ public class AIBuildBridgeState : AIState
     }
     public void Update(AIAgent agent)
     {
-        MakeBotRotate(agent);
+        // MakeBotRotate(agent);
     }
     public void Exit(AIAgent agent)
     {
