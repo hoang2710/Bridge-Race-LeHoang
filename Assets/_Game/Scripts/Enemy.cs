@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : Player
 {
+    public AIAgent agent;
     public NavMeshAgent NavAgent;
     public Transform targetTrans;
     private bool isFall;
@@ -15,53 +16,34 @@ public class Enemy : Player
         NavAgent.updateRotation = false;
         NavAgent.autoBraking = false;
     }
-    private void Update()
-    {
-        BotMove(targetTrans.position);
-    }
     protected override void FixedUpdate()
     {
         //NOTE: Only get brick rotate Quaternion
         BrickRotation = PlayerTrans.rotation * StackRootLocalRotation;
     }
-    private void BotMove(Vector3 destination)
-    {
-        if (isFall)
-        {
-            NavAgent.destination = PlayerTrans.position;
-        }
-        else
-        {
-            NavAgent.destination = destination;
-
-            if (NavAgent.velocity.sqrMagnitude < 0.01f)
-            {
-                anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 0);
-            }
-            else
-            {
-                anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
-                MakeBotRotate();
-            }
-        }
-    }
-    private void MakeBotRotate()
-    {
-        Vector3 dir = new Vector3(NavAgent.velocity.x, 0, NavAgent.velocity.z).normalized;
-        PlayerTrans.rotation = Quaternion.LookRotation(dir);
-    }
+    // private void BotMove(Vector3 destination)
+    // {
+    //     if (!isFall)
+    //     {
+    //         if (NavAgent.velocity.sqrMagnitude < 0.01f)
+    //         {
+    //             anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 0);
+    //         }
+    //         else
+    //         {
+    //             anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
+    //             MakeBotRotate();
+    //         }
+    //     }
+    // }
     protected override void TriggerFall()
     {
         StartCoroutine(Fall());
     }
-
     private IEnumerator Fall()
     {
-        isFall = true;
-        Col.enabled = false;
-        anim.SetTrigger(ConstValues.PLAYER_ANIM_FALL);
+        agent.stateMachine.ChangeState(AIStateId.Fall);
         yield return new WaitForSeconds(ConstValues.VALUE_TIME_OF_FALL_ANIM); //NOTE: ~ time of fall plus kipup animation
-        isFall = false;
-        Col.enabled = true;
+        agent.stateMachine.ChangeState(agent.stateMachine.prevState);
     }
 }

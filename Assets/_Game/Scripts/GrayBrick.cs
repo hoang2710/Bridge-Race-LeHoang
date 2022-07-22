@@ -9,7 +9,7 @@ public class GrayBrick : Brick
     public override void OnObjectSpawn()
     {
         Col.enabled = false;
-        StartCoroutine(DelayCanPickStatus());
+        StartCoroutine(DelaySetCanPickStatus());
     }
     protected override void AddBrickToPlayer(Player player)
     {
@@ -26,7 +26,7 @@ public class GrayBrick : Brick
         PrefabManager.Instance.PushToPool(PrefabManager.ObjectType.GrayBrick, BrickObj);
     }
 
-    private IEnumerator DelayCanPickStatus()
+    private IEnumerator DelaySetCanPickStatus()
     {
         yield return new WaitForSeconds(2f);
         Col.enabled = true;

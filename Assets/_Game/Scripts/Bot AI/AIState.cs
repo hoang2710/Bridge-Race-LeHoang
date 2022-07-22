@@ -5,7 +5,9 @@ using UnityEngine;
 public enum AIStateId
 {
     CollectBrick,
-    BuildBridge
+    BuildBridge,
+    Idle,
+    Fall
 }
 public interface AIState
 {

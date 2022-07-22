@@ -10,14 +10,19 @@ public class AIBuildBridgeState : AIState
     }
     public void Enter(AIAgent agent)
     {
-        throw new System.NotImplementedException();
+        agent.anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
     }
     public void Update(AIAgent agent)
     {
-        throw new System.NotImplementedException();
+        MakeBotRotate(agent);
     }
     public void Exit(AIAgent agent)
     {
-        throw new System.NotImplementedException();
+
+    }
+    private void MakeBotRotate(AIAgent agent)
+    {
+        Vector3 dir = new Vector3(agent.NavAgent.velocity.x, 0, agent.NavAgent.velocity.z).normalized;
+        agent.BotTrans.rotation = Quaternion.LookRotation(dir);
     }
 }
