@@ -71,5 +71,11 @@ public class AICollectBrickState : AIState
                 isBuild = true;
             }
         }
+        //NOTE: temp solution for buildBridgeState condition !!!
+        if (agent.BrickStatck.Count > 16)
+        {
+            isBuild = true;
+        }
+
     }
 }
