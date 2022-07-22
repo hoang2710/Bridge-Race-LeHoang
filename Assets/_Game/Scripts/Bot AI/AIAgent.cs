@@ -13,6 +13,8 @@ public class AIAgent : MonoBehaviour
     public Collider BotCollider;
     public LayerMask BrickLayerMask;
     public float moveSpeed = 1f;
+    public Stack<GameObject> BrickStatck;
+    public Enemy enemyRef;
 
     private void Start() {
         stateMachine = new AIStateMachine(this);
@@ -21,6 +23,8 @@ public class AIAgent : MonoBehaviour
         stateMachine.RegisterState(new AIIdleState());
         stateMachine.RegisterState(new AIFallState());
         stateMachine.ChangeState(initState);
+
+        BrickStatck = enemyRef.BrickStack;
     }
     private void Update() {
         stateMachine.Update();

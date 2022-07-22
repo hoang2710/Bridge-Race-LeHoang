@@ -32,6 +32,9 @@ public class GrayBrick : MonoBehaviour, IPooledObject
     {
         GameObject tmpBrickObj = PrefabManager.Instance.PopFromPool(player.BrickTag, BrickTrans.position, BrickTrans.rotation);
         Transform tmpBrickTrans = tmpBrickObj.transform;
+        Brick tmpBrick = tmpBrickObj.GetComponent<Brick>();
+
+        tmpBrick.Col.enabled = false;
 
         tmpBrickTrans.SetParent(player.PlayerTrans);
         tmpBrickTrans.position = player.StackRootTrans.position;

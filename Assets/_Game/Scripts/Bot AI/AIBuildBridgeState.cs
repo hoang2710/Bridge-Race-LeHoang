@@ -11,10 +11,19 @@ public class AIBuildBridgeState : AIState
     public void Enter(AIAgent agent)
     {
         agent.anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
+
+        List<Vector3> waypoints = WaypointRefCenter.Instance.waypoints;
+        int ran = Random.Range(0, waypoints.Count);
+        agent.NavAgent.destination = waypoints[ran]; Debug.LogWarning("settle");
     }
     public void Update(AIAgent agent)
     {
-        // MakeBotRotate(agent);
+        MakeBotRotate(agent);
+
+        if (agent.BrickStatck.Count <= 0) 
+        {
+            agent.stateMachine.ChangeState(AIStateId.CollectBrick);
+        }
     }
     public void Exit(AIAgent agent)
     {

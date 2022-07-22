@@ -15,11 +15,28 @@ public class Enemy : Player
         Rb.constraints = rbMoveConstraints;
         NavAgent.updateRotation = false;
         NavAgent.autoBraking = false;
+
+        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged; //NOTE: there is no other way
     }
     protected override void FixedUpdate()
     {
         //NOTE: Only get brick rotate Quaternion
         BrickRotation = PlayerTrans.rotation * StackRootLocalRotation;
+    }
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+    }
+    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    {
+        switch (state)
+        {
+            case GameManager.GameState.Playing:
+                agent.stateMachine.ChangeState(AIStateId.CollectBrick);
+                break;
+            default:
+                break;
+        }
     }
     protected override void TriggerFall()
     {

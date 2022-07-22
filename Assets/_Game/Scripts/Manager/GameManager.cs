@@ -50,6 +50,7 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("GameStateLoadLevel");
         LevelManager.Instance.LoadLevel();
+        StartCoroutine(DelayChangeGameState(GameState.Playing, 0.5f));
     }
     public void OnGameStatePlaying()
     {
