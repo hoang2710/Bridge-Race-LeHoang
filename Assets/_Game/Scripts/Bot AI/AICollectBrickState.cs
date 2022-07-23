@@ -7,6 +7,7 @@ public class AICollectBrickState : AIState
     private Vector3 targetPos;
     private bool isBuild;
     private bool isNeedToFindBrick;
+    private int numOfBrickToCollect = 0; //NOTE: temp solution for buildBridgeState condition !!!
     public AIStateId GetId()
     {
         return AIStateId.CollectBrick;
@@ -16,6 +17,8 @@ public class AICollectBrickState : AIState
         agent.anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
         isNeedToFindBrick = true;
         isBuild = false;
+
+        numOfBrickToCollect = Random.Range(8, 13); //NOTE: temp solution for buildBridgeState condition !!!
     }
     public void Update(AIAgent agent)
     {
@@ -23,17 +26,13 @@ public class AICollectBrickState : AIState
 
         Vector3 moveDir = targetPos - agent.BotTrans.position;
         if (moveDir.sqrMagnitude < ConstValues.VALUE_BOT_MIN_TOUCH_BRICK_DISTANCE || isNeedToFindBrick)
-        // if(agent.NavAgent.velocity.sqrMagnitude < 0.01f)
         {
             FindBrick(agent);
             agent.NavAgent.destination = targetPos; Debug.LogWarning("assign");
         }
 
         Debug.Log("TargetPos  " + agent.gameObject.name + "   " + targetPos + "   " + agent.BotTrans.position);
-        // else
-        // {
-        //     agent.NavAgent.velocity = moveDir.normalized * agent.moveSpeed;
-        // }
+
         if (isBuild)
         {
             agent.stateMachine.ChangeState(AIStateId.BuildBridge);
@@ -72,7 +71,7 @@ public class AICollectBrickState : AIState
             }
         }
         //NOTE: temp solution for buildBridgeState condition !!!
-        if (agent.BrickStatck.Count > 16)
+        if (agent.BrickStatck.Count > numOfBrickToCollect)
         {
             isBuild = true;
         }

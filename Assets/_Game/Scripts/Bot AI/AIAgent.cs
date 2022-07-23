@@ -12,7 +12,6 @@ public class AIAgent : MonoBehaviour
     public Animator anim;
     public Collider BotCollider;
     public LayerMask BrickLayerMask;
-    public float moveSpeed = 1f;
     public Stack<GameObject> BrickStatck;
     public Enemy enemyRef;
 

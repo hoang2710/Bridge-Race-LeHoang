@@ -859,7 +859,6 @@ MonoBehaviour:
   BrickLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  moveSpeed: 1
   enemyRef: {fileID: 51462610}
 --- !u!1 &51689411
 GameObject:
@@ -1079,7 +1078,6 @@ MonoBehaviour:
   BrickLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  moveSpeed: 1
   enemyRef: {fileID: 58587933}
 --- !u!1001 &60623394
 PrefabInstance:
@@ -12193,7 +12191,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.3272752, y: -0.00000003982578, z: 0.000000013793616, w: 0.94492906}
+  m_LocalRotation: {x: 0.3272752, y: -0.000000039825782, z: 0.000000013793617, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -15336,7 +15334,6 @@ MonoBehaviour:
   BrickLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  moveSpeed: 1
   enemyRef: {fileID: 1283615551}
 --- !u!1001 &1284222445
 PrefabInstance:
@@ -18505,7 +18502,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546035312}
-  m_LocalRotation: {x: 0.3272752, y: -0.00000003982578, z: 0.000000013793616, w: 0.94492906}
+  m_LocalRotation: {x: 0.3272752, y: -0.000000039825782, z: 0.000000013793617, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

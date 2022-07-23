@@ -12,7 +12,7 @@ public class Enemy : Player
     new private void Start()
     {
         StackRootLocalRotation = StackRootTrans.localRotation;
-        Rb.constraints = rbMoveConstraints;
+        Rb.constraints = ConstValues.RB_BOT_DEFAULT_CONSTRAINTS;
         NavAgent.updateRotation = false;
         NavAgent.autoBraking = false;
 
