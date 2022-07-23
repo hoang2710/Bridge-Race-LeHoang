@@ -2,4 +2,4 @@ gate detect issue detect multiple time --fixed--
 bot rotate like shit --fixed--
 collide on bridge  --temp fixed--> not pass through
 !!! aware of NavMesh destination define bug due to Brick collider not disable
-player and bot collide sometime jiggle annoying like shit  
+player and bot collide sometime jiggle annoying like shit --fixed--

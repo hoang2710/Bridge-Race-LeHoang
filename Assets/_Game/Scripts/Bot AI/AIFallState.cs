@@ -10,8 +10,8 @@ public class AIFallState : AIState
     }
     public void Enter(AIAgent agent)
     {
-        agent.NavAgent.destination = agent.BotTrans.position;
         agent.BotCollider.enabled = false;
+        agent.NavAgent.enabled = false;
         agent.anim.SetTrigger(ConstValues.PLAYER_ANIM_FALL);
     }
     public void Update(AIAgent agent)
@@ -21,5 +21,6 @@ public class AIFallState : AIState
     public void Exit(AIAgent agent)
     {
         agent.BotCollider.enabled = true;
+        agent.NavAgent.enabled = true;
     }
 }
