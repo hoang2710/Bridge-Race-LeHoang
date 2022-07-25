@@ -817,6 +817,9 @@ MonoBehaviour:
   BrickTag: 2
   StairTag: 7
   LevelStage: 0
+  BrickLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   agent: {fileID: 51462612}
   NavAgent: {fileID: 51462607}
   targetTrans: {fileID: 1257965288}
@@ -1036,6 +1039,9 @@ MonoBehaviour:
   BrickTag: 1
   StairTag: 6
   LevelStage: 0
+  BrickLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   agent: {fileID: 58587935}
   NavAgent: {fileID: 58587930}
   targetTrans: {fileID: 1257965288}
@@ -1819,6 +1825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLevelStage: 1
+  brickSweeper: {fileID: 0}
 --- !u!1 &147303473
 GameObject:
   m_ObjectHideFlags: 0
@@ -10131,6 +10138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLevelStage: 2
+  brickSweeper: {fileID: 0}
 --- !u!65 &796720695
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12191,7 +12199,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.3272752, y: 0.00000003982578, z: -0.000000013793616, w: 0.94492906}
+  m_LocalRotation: {x: 0.3272752, y: -0.000000039825782, z: 0.000000013793617, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -15292,6 +15300,9 @@ MonoBehaviour:
   BrickTag: 3
   StairTag: 8
   LevelStage: 0
+  BrickLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   agent: {fileID: 1283615553}
   NavAgent: {fileID: 1283615548}
   targetTrans: {fileID: 1257965288}
@@ -18502,7 +18513,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546035312}
-  m_LocalRotation: {x: 0.3272752, y: 0.00000003982578, z: -0.000000013793616, w: 0.94492906}
+  m_LocalRotation: {x: 0.3272752, y: -0.000000039825782, z: 0.000000013793617, w: 0.94492906}
   m_LocalPosition: {x: -1.5, y: 3.562, z: -6.309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -25195,6 +25206,9 @@ MonoBehaviour:
   BrickTag: 0
   StairTag: 5
   LevelStage: 0
+  BrickLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &950778531910382557
 GameObject:
   m_ObjectHideFlags: 0

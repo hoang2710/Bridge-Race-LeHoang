@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public ObjectType BrickTag;
     public ObjectType StairTag;
     public Level_Stage LevelStage;
+    public LayerMask BrickLayerMask;
 
     protected void Start()
     {
