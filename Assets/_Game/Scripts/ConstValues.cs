@@ -21,4 +21,5 @@ public class ConstValues
     public const RigidbodyConstraints RB_PLAYER_MOVE_CONSTRAINTS = RigidbodyConstraints.FreezeRotation;
     public const RigidbodyConstraints RB_PLAYER_STAY_CONSTRAINTS = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
     public const RigidbodyConstraints RB_BOT_DEFAULT_CONSTRAINTS = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+    public const float VALUE_TIME_FOR_BOT_GO_INTO_NEW_STAGE = 1.5f;
 }

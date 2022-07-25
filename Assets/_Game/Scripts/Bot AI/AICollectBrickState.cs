@@ -28,7 +28,8 @@ public class AICollectBrickState : AIState
         if (moveDir.sqrMagnitude < ConstValues.VALUE_BOT_MIN_TOUCH_BRICK_DISTANCE || isNeedToFindBrick)
         {
             FindBrick(agent);
-            agent.NavAgent.destination = targetPos; Debug.LogWarning("assign");
+            agent.NavAgent.destination = targetPos; 
+            // Debug.LogWarning("assign");
         }
 
         Debug.Log("TargetPos  " + agent.gameObject.name + "   " + targetPos + "   " + agent.BotTrans.position);
@@ -55,11 +56,12 @@ public class AICollectBrickState : AIState
     private void FindBrick(AIAgent agent)
     {
         Collider[] cols = Physics.OverlapSphere(agent.BotTrans.position, ConstValues.VALUE_BOT_DETECT_RANGE, agent.BrickLayerMask);
-        Debug.Log(cols.Length + "  " + agent.gameObject.name);
+        // Debug.Log(cols.Length + "  " + agent.gameObject.name);
         if (cols.Length > 0)
         {
             int ran = Random.Range(0, cols.Length);
-            targetPos = cols[ran].transform.position; Debug.Log(ran + "  " + agent.gameObject.name + "  " + targetPos);
+            targetPos = cols[ran].transform.position; 
+            // Debug.Log(ran + "  " + agent.gameObject.name + "  " + targetPos);
 
             isNeedToFindBrick = false;
         }

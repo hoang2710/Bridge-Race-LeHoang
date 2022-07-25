@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIBuildBridgeState : AIState
 {
+    private float timer;
     public AIStateId GetId()
     {
         return AIStateId.BuildBridge;
@@ -12,22 +13,36 @@ public class AIBuildBridgeState : AIState
     {
         agent.anim.SetFloat(ConstValues.PLAYER_ANIM_VELOCITY, 1f);
 
-        List<Vector3> waypoints = WaypointRefCenter.Instance.waypoints;
+        List<Transform> waypoints = WaypointRefCenter.Instance.WaypointsRef[agent.enemyRef.LevelStage];
         int ran = Random.Range(0, waypoints.Count);
-        agent.NavAgent.destination = waypoints[ran]; Debug.LogWarning("settle");
+        agent.NavAgent.destination = waypoints[ran].position;
+        // Debug.LogWarning("settle");
+
+        timer = 0f;
     }
     public void Update(AIAgent agent)
     {
         MakeBotRotate(agent);
 
-        if (agent.BrickStatck.Count <= 0) 
+        if (agent.isOnEndOfStair)
+        {
+            if (timer > ConstValues.VALUE_TIME_FOR_BOT_GO_INTO_NEW_STAGE)
+            {
+                agent.stateMachine.ChangeState(AIStateId.CollectBrick); Debug.LogWarning("Chang State Due to last stair  " + agent.gameObject.name);
+            }
+            else
+            {
+                timer += Time.deltaTime;
+            }
+        }
+        else if (agent.BrickStatck.Count <= 0)
         {
             agent.stateMachine.ChangeState(AIStateId.CollectBrick);
         }
     }
     public void Exit(AIAgent agent)
     {
-
+        agent.isOnEndOfStair = false;
     }
     private void MakeBotRotate(AIAgent agent)
     {

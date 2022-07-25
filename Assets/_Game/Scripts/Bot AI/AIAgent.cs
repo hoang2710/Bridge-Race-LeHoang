@@ -14,8 +14,10 @@ public class AIAgent : MonoBehaviour
     public LayerMask BrickLayerMask;
     public Stack<GameObject> BrickStatck;
     public Enemy enemyRef;
+    public bool isOnEndOfStair;
 
-    private void Start() {
+    private void Start()
+    {
         stateMachine = new AIStateMachine(this);
         stateMachine.RegisterState(new AICollectBrickState());
         stateMachine.RegisterState(new AIBuildBridgeState());
@@ -25,7 +27,8 @@ public class AIAgent : MonoBehaviour
 
         BrickStatck = enemyRef.BrickStack;
     }
-    private void Update() {
+    private void Update()
+    {
         stateMachine.Update();
     }
 }

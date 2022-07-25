@@ -7,10 +7,11 @@ public class Stair : MonoBehaviour, IPooledObject
     public Transform StairTrans;
     public GameObject StairObject;
     public ObjectType StairTag;
+    public bool isEndOfStair;
 
     public void OnObjectSpawn()
     {
-
+        isEndOfStair = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,13 +24,35 @@ public class Stair : MonoBehaviour, IPooledObject
                 if (player.MinusBrick())
                 {
                     SwitchBrick(player.StairTag);
+
+                    if (isEndOfStair)
+                    {
+                        AIAgent agent = player.GetComponent<AIAgent>();
+
+                        if (agent != null)
+                        {
+                            agent.isOnEndOfStair = true;
+                        }
+                    }
                 }
             }
         }
     }
     private void SwitchBrick(ObjectType targetTag)
     {
-        PrefabManager.Instance.PopFromPool(targetTag, StairTrans.position, Quaternion.identity);
+        //NOTE: Pass isEndOfStair value to switched stair
+        GameObject obj = PrefabManager.Instance.PopFromPool(targetTag, StairTrans.position, Quaternion.identity);
+        
+        if (isEndOfStair && obj != null)
+        {
+            Stair stair = obj.GetComponent<Stair>();
+
+            if (stair != null)
+            {
+                stair.isEndOfStair = true;
+            }
+        }
+
         PrefabManager.Instance.PushToPool(StairTag, StairObject);
     }
 }
