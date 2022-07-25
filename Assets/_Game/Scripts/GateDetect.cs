@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GateDetect : MonoBehaviour
 {
-    public LevelManager.Level_Stage targetLevelStage;
+    public Level_Stage targetLevelStage;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(ConstValues.TAG_PLAYER))

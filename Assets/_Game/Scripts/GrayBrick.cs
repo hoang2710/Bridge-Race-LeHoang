@@ -43,7 +43,7 @@ public class GrayBrick : MonoBehaviour, IPooledObject
 
         player.BrickStack.Push(tmpBrickObj);
 
-        PrefabManager.Instance.PushToPool(PrefabManager.ObjectType.GrayBrick, BrickObj);
+        PrefabManager.Instance.PushToPool(ObjectType.GrayBrick, BrickObj);
     }
 
     private IEnumerator DelaySetCanPickStatus()

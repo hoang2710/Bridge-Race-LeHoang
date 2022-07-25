@@ -22,9 +22,9 @@ public class Player : MonoBehaviour
     public Stack<GameObject> BrickStack = new Stack<GameObject>();
     protected Quaternion StackRootLocalRotation;
     private bool isInputLock;
-    public PrefabManager.ObjectType BrickTag;
-    public PrefabManager.ObjectType StairTag;
-    public LevelManager.Level_Stage LevelStage;
+    public ObjectType BrickTag;
+    public ObjectType StairTag;
+    public Level_Stage LevelStage;
 
     protected void Start()
     {
@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
             //NOTE: spawn new brick if a brick is turn into grayBrick
             LevelManager.Instance.SpawnObject(LevelManager.Instance.spawnLocations[LevelStage], BrickTag);
 
-            PrefabManager.Instance.PopFromPool(PrefabManager.ObjectType.GrayBrick, objTrans.position, objTrans.rotation);
+            PrefabManager.Instance.PopFromPool(ObjectType.GrayBrick, objTrans.position, objTrans.rotation);
             PrefabManager.Instance.PushToPool(BrickTag, obj);
         }
     }

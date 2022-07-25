@@ -26,17 +26,17 @@ public class LevelManager : Singleton<LevelManager>
         List<Vector3> spawnPoints = spawnLocations[curLevelStage];
 
         int num = spawnPointCount[curLevelStage] / ConstValues.VALUE_NUM_OF_PLAYER;
-        SpawnBaseBrick(PrefabManager.ObjectType.BlueBrick, num, spawnPoints);
-        SpawnBaseBrick(PrefabManager.ObjectType.GreenBrick, num, spawnPoints);
-        SpawnBaseBrick(PrefabManager.ObjectType.RedBrick, num, spawnPoints);
-        SpawnBaseBrick(PrefabManager.ObjectType.YellowBrick, num, spawnPoints);
+        SpawnBaseBrick(ObjectType.BlueBrick, num, spawnPoints);
+        SpawnBaseBrick(ObjectType.GreenBrick, num, spawnPoints);
+        SpawnBaseBrick(ObjectType.RedBrick, num, spawnPoints);
+        SpawnBaseBrick(ObjectType.YellowBrick, num, spawnPoints);
     }
     public void LoadNextLevel()
     {
         curLevelStage = (Level_Stage)(((int)curLevelStage + 3) % 9);
         LoadLevel();
     }
-    public void SpawnObject(List<Vector3> spawnPoints, PrefabManager.ObjectType objectType)
+    public void SpawnObject(List<Vector3> spawnPoints, ObjectType objectType)
     {
         // Debug.Log(spawnPoints.Count + "   " + spawnLocations[curLevelStage].Count);
         if (spawnPoints.Count <= 0)
@@ -47,25 +47,12 @@ public class LevelManager : Singleton<LevelManager>
         PrefabManager.Instance.PopFromPool(objectType, spawnPoints[ran], Quaternion.identity);
         spawnPoints.RemoveAt(ran);
     }
-    public void SpawnBaseBrick(PrefabManager.ObjectType tag, int num, List<Vector3> spawnPoints)
+    public void SpawnBaseBrick(ObjectType tag, int num, List<Vector3> spawnPoints)
     {
         for (int i = 0; i < num; i++)
         {
             SpawnObject(spawnPoints, tag);
         }
-    }
-
-    public enum Level_Stage
-    {
-        Level_1_Stage_1,
-        Level_1_Stage_2,
-        Level_1_Stage_3,
-        Level_2_Stage_1,
-        Level_2_Stage_2,
-        Level_2_Stage_3,
-        Level_3_Stage_1,
-        Level_3_Stage_2,
-        Level_3_Stage_3
     }
 
 #if UNITY_EDITOR
@@ -123,4 +110,17 @@ public class LevelManager : Singleton<LevelManager>
         AssetDatabase.Refresh();
     }
 #endif
+}
+
+public enum Level_Stage
+{
+    Level_1_Stage_1,
+    Level_1_Stage_2,
+    Level_1_Stage_3,
+    Level_2_Stage_1,
+    Level_2_Stage_2,
+    Level_2_Stage_3,
+    Level_3_Stage_1,
+    Level_3_Stage_2,
+    Level_3_Stage_3
 }

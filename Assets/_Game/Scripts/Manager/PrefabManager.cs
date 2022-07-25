@@ -82,17 +82,18 @@ public class PrefabManager : Singleton<PrefabManager>
         obj.SetActive(false);
     }
 
-    public enum ObjectType
-    {
-        BlueBrick,
-        GreenBrick,
-        RedBrick,
-        YellowBrick,
-        GrayBrick,
-        BlueStair,
-        GreenStair,
-        RedStair,
-        YellowStair,
-        InvisibleStair
-    }
+
+}
+public enum ObjectType
+{
+    BlueBrick,
+    GreenBrick,
+    RedBrick,
+    YellowBrick,
+    GrayBrick,
+    BlueStair,
+    GreenStair,
+    RedStair,
+    YellowStair,
+    InvisibleStair
 }

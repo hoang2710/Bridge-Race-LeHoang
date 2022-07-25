@@ -19,10 +19,10 @@ public class StairRoot : MonoBehaviour
         for (int i = 1; i < NumOfStep; i++)
         {
             pos += new Vector3(0, ConstValues.VALUE_STAIR_HEIGHT, ConstValues.VALUE_STAIR_WIDTH);
-            PrefabManager.Instance.PopFromPool(PrefabManager.ObjectType.InvisibleStair, pos, Quaternion.identity);
+            PrefabManager.Instance.PopFromPool(ObjectType.InvisibleStair, pos, Quaternion.identity);
         }
 
-        PrefabManager.Instance.PopFromPool(PrefabManager.ObjectType.InvisibleStair, RootTrans.position, Quaternion.identity);
+        PrefabManager.Instance.PopFromPool(ObjectType.InvisibleStair, RootTrans.position, Quaternion.identity);
 
         RootTrans.gameObject.SetActive(false);
     }

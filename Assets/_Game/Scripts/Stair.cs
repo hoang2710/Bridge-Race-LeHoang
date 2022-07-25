@@ -6,7 +6,7 @@ public class Stair : MonoBehaviour, IPooledObject
 {
     public Transform StairTrans;
     public GameObject StairObject;
-    public PrefabManager.ObjectType StairTag;
+    public ObjectType StairTag;
 
     public void OnObjectSpawn()
     {
@@ -27,7 +27,7 @@ public class Stair : MonoBehaviour, IPooledObject
             }
         }
     }
-    private void SwitchBrick(PrefabManager.ObjectType targetTag)
+    private void SwitchBrick(ObjectType targetTag)
     {
         PrefabManager.Instance.PopFromPool(targetTag, StairTrans.position, Quaternion.identity);
         PrefabManager.Instance.PushToPool(StairTag, StairObject);
