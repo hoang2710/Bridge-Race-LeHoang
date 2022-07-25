@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
@@ -25,10 +26,13 @@ public class Player : MonoBehaviour
     public PrefabManager.ObjectType BrickTag;
     public PrefabManager.ObjectType StairTag;
     public LevelManager.Level_Stage LevelStage;
+    [SerializeField]
+    private NavMeshAgent PlayerAgent;
 
     protected void Start()
     {
         StackRootLocalRotation = StackRootTrans.localRotation;
+        Rb.constraints = ConstValues.RB_DEFAULT_CONSTRAINTS; 
     }
     protected virtual void FixedUpdate()
     {
@@ -41,14 +45,10 @@ public class Player : MonoBehaviour
         GetBrickRotation();
         if (isMove && !isInputLock)
         {
-            Rb.constraints = ConstValues.RB_PLAYER_MOVE_CONSTRAINTS;
-            PlayerTrans.position = Vector3.MoveTowards(PlayerTrans.position, PlayerTrans.position + moveDir, Time.deltaTime * moveSpeed);
+            PlayerAgent.Move(moveDir * moveSpeed * Time.deltaTime); 
             PlayerTrans.rotation = rotation;
         }
-        else
-        {
-            Rb.constraints = ConstValues.RB_PLAYER_STAY_CONSTRAINTS;
-        }
+
     }
     private void GetMoveDir()
     {

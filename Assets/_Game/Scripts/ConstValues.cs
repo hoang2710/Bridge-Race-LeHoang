@@ -20,5 +20,5 @@ public class ConstValues
     public const float VALUE_BOT_MIN_TOUCH_BRICK_DISTANCE = 0.06f * 0.06f; //NOTE: compare to sqrMag
     public const RigidbodyConstraints RB_PLAYER_MOVE_CONSTRAINTS = RigidbodyConstraints.FreezeRotation;
     public const RigidbodyConstraints RB_PLAYER_STAY_CONSTRAINTS = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-    public const RigidbodyConstraints RB_BOT_DEFAULT_CONSTRAINTS = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+    public const RigidbodyConstraints RB_DEFAULT_CONSTRAINTS = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 }
